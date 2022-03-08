@@ -1,4 +1,4 @@
-mport board
+import board
 import time
 import random
 from adafruit_ht16k33.matrix import Matrix8x8x2
