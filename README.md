@@ -1,1 +1,3 @@
-# shaken_baby
+# St. Lukes Innovation Lab
+
+Shaken Baby Simulator Project
