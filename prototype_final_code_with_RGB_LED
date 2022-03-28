@@ -1,0 +1,135 @@
+# Write your code here :-)
+import board
+import time
+import random
+import adafruit_rgbled
+import digitalio
+import audiocore
+import audiobusio
+import adafruit_lis3dh
+from adafruit_ht16k33.matrix import Matrix8x8x2
+from rainbowio import colorwheel
+
+RED_LED = board.D11
+GREEN_LED = board.D12
+BLUE_LED = board.D13
+
+red_color = 0xFF0000
+orange_color = (80, 165, 0)
+green_color = 0x00FF00
+
+led = adafruit_rgbled.RGBLED(RED_LED, GREEN_LED, BLUE_LED, invert_pwm=True)
+
+def rainbow_cycle(wait):
+    for i in range(255):
+        i = (i + 1) % 256
+        led.color = colorwheel(i)
+        time.sleep(wait)
+        
+def rgb_led_setup():
+    led.color = (255, 0, 0)
+    time.sleep(1)
+
+    led.color = (0, 255, 0)
+    time.sleep(1)
+
+    led.color = (0, 0, 255)
+    time.sleep(1)
+
+    # setting RGB LED color to 24-bit integer values
+    led.color = 0xFF0000
+    time.sleep(1)
+
+    led.color = 0x00FF00
+    time.sleep(1)
+
+    led.color = 0x0000FF
+    time.sleep(1)
+
+    # rainbow cycle the RGB LED
+    rainbow_cycle(0.1)
+
+#setup for 3 color matrix
+i2c = board.I2C()
+matrix = Matrix8x8x2(i2c)
+#end setup
+
+#setup for accelerometer
+spi = board.SPI()
+cs = digitalio.DigitalInOut(board.D5)  # Set to appropriate CS pin!
+int1 = digitalio.DigitalInOut(board.D6) # Set to correct pin for interrupt!
+lis3dh = adafruit_lis3dh.LIS3DH_SPI(spi, cs, int1=int1)
+#end setup
+
+#audio setup
+audio_files = ["pacman_intro.wav", "baby_crying.wav",
+               "where_my_class.wav", "knowledge.wav", "serious_therapy.wav"]
+i2s = audiobusio.I2SOut(board.D1, board.D0, board.D9)
+
+#erase colors from board
+matrix.fill(0)
+
+
+def light_column(matrix, column, color):
+    for position in range(0, 8):
+        matrix[position, column] = color
+
+def light_board(matrix, display_force):
+    actual_size = display_force-1
+    if actual_size >= 0:
+        light_column(matrix, 0, color=matrix.LED_GREEN)
+        led.color = green_color
+    if actual_size >= 1:
+        light_column(matrix, 1, color=matrix.LED_GREEN)
+        led.color = green_color
+    if actual_size >= 2:
+        light_column(matrix, 2, color=matrix.LED_YELLOW)
+        led.color = orange_color
+    if actual_size >= 3:
+        light_column(matrix, 3, color=matrix.LED_YELLOW)
+        led.color = orange_color
+    if actual_size >= 4:
+        light_column(matrix, 4, color=matrix.LED_YELLOW)
+        led.color = orange_color
+    if actual_size >= 5:
+        light_column(matrix, 5, color=matrix.LED_RED)
+        led.color = red_color
+    if actual_size >= 6:
+        light_column(matrix, 6, color=matrix.LED_RED)
+        led.color = red_color
+    if actual_size == 7:
+        light_column(matrix, 7, color=matrix.LED_RED)
+        led.color = red_color
+
+def read_force_from_accelerometer(matrix):
+    force_read = 1
+    strong_force = False
+    if lis3dh.shake(shake_threshold=15):
+        force_read = 8
+        print("force", force_read)
+        strong_force = True
+    elif lis3dh.shake(shake_threshold=12):
+        force_read = 6
+        print("force", force_read)
+    elif lis3dh.shake(shake_threshold=10):
+        force_read = 4
+        print("force", force_read)
+    elif lis3dh.shake(shake_threshold=5):
+        force_read = 1
+        print("force", force_read)
+
+    light_board(matrix, display_force=force_read)
+    time.sleep(0.1)
+    matrix.fill(0)
+    return strong_force
+
+
+while True:
+    strong_force = read_force_from_accelerometer(matrix)
+    if strong_force:
+        led.color = (255,0,0)
+        f = open(random.choice(audio_files), "rb")
+        wav = audiocore.WaveFile(f)
+        i2s.play(wav)
+        while i2s.playing:
+            strong_force = read_force_from_accelerometer(matrix)
