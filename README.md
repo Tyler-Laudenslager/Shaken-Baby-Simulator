@@ -1,6 +1,7 @@
 # St. Lukes Simulation Center / The Cauldron
 
-![The Cauldron]("https://www.stlukessimcenter.org/assets/img/3d-print-innovation-lab/the-cauldron-logo.jpg")
+<img src="https://www.stlukessimcenter.org/assets/img/3d-print-innovation-lab/the-cauldron-logo.jpg" height="60" width="60" >
+
 
 Shaken Baby Simulator Project
 
