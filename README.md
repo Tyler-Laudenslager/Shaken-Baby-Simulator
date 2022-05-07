@@ -6,8 +6,8 @@
 
 <h2>Shaken Baby Simulator Project</h2>
 
-<p>.fzz files are from https://fritzing.org/</p>
+<p>.fzz files are from https://fritzing.org/
+.xlsx files are normal Microsoft Excel files</p>
 <br>
-<p>.xlsx files are normal Microsoft Excel files</p>
 <br>
 <p>There are no malicious files in this repo!!</p>
