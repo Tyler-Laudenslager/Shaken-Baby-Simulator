@@ -91,7 +91,7 @@ def light_board(matrix, display_force):
         light_column(matrix, 4, color=matrix.LED_YELLOW)
         led.color = orange_color
     if actual_size >= 5:
-         light_column(matrix, 5, color=matrix.LED_RED)
+        light_column(matrix, 5, color=matrix.LED_RED)
         led.color = red_color
     if actual_size >= 6:
         light_column(matrix, 6, color=matrix.LED_RED)
@@ -113,7 +113,7 @@ def read_force_from_accelerometer(matrix):
     elif lis3dh.shake(shake_threshold=10):
         force_read = 4
         print("force", force_read)
-    eli lis3dh.shake(shake_threshold=5):
+    elif lis3dh.shake(shake_threshold=5):
         force_read = 1
         print("force", force_read)
 
