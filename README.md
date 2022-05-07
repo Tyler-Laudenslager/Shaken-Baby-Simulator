@@ -7,6 +7,7 @@
 <h2>Shaken Baby Simulator Project</h2>
 
 <p>.fzz files are from https://fritzing.org/
+<br>
 .xlsx files are normal Microsoft Excel files</p>
 <br>
 <br>
