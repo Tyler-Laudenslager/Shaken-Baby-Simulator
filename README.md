@@ -4,10 +4,10 @@
 <img src="https://www.stlukessimcenter.org/assets/img/3d-print-innovation-lab/the-cauldron-logo.jpg" height="200" width="600" >
 
 
-Shaken Baby Simulator Project
+<h2>Shaken Baby Simulator Project</h2>
 
-.fzz files are from https://fritzing.org/
-
-.xlsx files are normal Microsoft Excel files
-
-There are no malicious files in this repo!!
+<p>.fzz files are from https://fritzing.org/</p>
+<br>
+<p>.xlsx files are normal Microsoft Excel files</p>
+<br>
+<p>There are no malicious files in this repo!!</p>
