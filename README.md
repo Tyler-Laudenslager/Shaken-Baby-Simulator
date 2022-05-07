@@ -1,4 +1,4 @@
-# St. Lukes Innovation Lab
+# St. Lukes Simulation Center / The Cauldron
 
 Shaken Baby Simulator Project
 
