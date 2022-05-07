@@ -9,7 +9,14 @@
 
 <p>.fzz files are from https://fritzing.org/
 <br>
-.xlsx files are normal Microsoft Excel files</p>
+.xlsx files are normal Microsoft Excel files
+<br>
+https://circuitpython.org/
+<br>
+https://learn.adafruit.com/
+<br>
+https://codewith.mu/en/
+</p>
 <br>
 <br>
 <p>There are no <b>malicious<b> files in this repo!!</p>
